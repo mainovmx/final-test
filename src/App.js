@@ -1,33 +1,22 @@
 import React from 'react'
 import './style.css'
+import MemesView from "./Pages/memes";
+import {Route, Routes} from "react-router";
+import Favorite from "./Pages/favorite";
+import Notes from "./Pages/notes";
+import Auth from "./Pages/authorization";
 
-const MemeButtonLeft = () =>{
-    return(
-        <input class="button-margin" type="image" src="https://www.pinclipart.com/picdir/big/345-3458901_arrow-pointing-to-left-svg-png-icon-free.png"
-               width="50px"/>
-    )
-}
-const MemeButtonRight = () =>{
-    return(
-        <input class="button-margin" type="image" src="https://uprostim.com/wp-content/uploads/2021/05/image009-1.png"
-               width="50px"/>
-    )
-}
 
-function App(){
+function App() {
+
     return(
-        <div className="no-margin">
-            <div className="content">
-                <div className="center">
-                    <a className="text-content">Здесь должно быть описание</a>
-                </div>
-                <div>
-                    <MemeButtonLeft/>
-                    <img src="https://www.meme-arsenal.com/memes/6fdcf7d9a868cca3adecaa89518b871a.jpg"/>
-                    <MemeButtonRight/>
-                </div>
-            </div>
-        </div>
+        <Routes>
+            <Route path='/' element={<MemesView/>} />
+            <Route exact path='/Pages/favorite' element={<Favorite/>}/>,
+            <Route exact path='/Pages/notes' element={<Notes/>}/>,
+            <Route exact path='/Pages/authorization' element={<Auth/>}/>
+        </Routes>
+
     )
 }
 

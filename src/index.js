@@ -1,30 +1,30 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
 import App from "./App";
-import {Route, Routes} from "react-router";
 import {BrowserRouter, Link} from "react-router-dom";
-import Favorite from "./Pages/favorite";
-import Notes from "./Pages/notes";
-import Auth from "./Pages/authorization";
+import {Provider} from "mobx-react";
+import MainStore from "./stores/MainStore";
+import "./style.css"
+
+const stores = {
+    mainStore: new MainStore()
+}
 const MainHeader = () => (
-    <div class="border-head">
-        <div class="center">
-                <Link to='/' class='text-bar'>Мемы </Link>
-                <Link to='/Pages/favorite'class='text-bar'>Избраное </Link>
-                <Link to='/Pages/notes'class='text-bar'>Заметки </Link>
-                <Link to='/Pages/authorization'class='text-bar'>Авторизация </Link>
+    <div className="border-head">
+        <div className="center">
+                <Link to='/' className='text-bar'>Мемы </Link>
+                <Link to='/Pages/favorite' className='text-bar'>Избраное </Link>
+                <Link to='/Pages/notes' className='text-bar'>Заметки </Link>
+                <Link to='/Pages/authorization' className='text-bar'>Авторизация </Link>
         </div>
     </div>
 )
 ReactDOM.render(
+    <Provider stores = {stores}>
     <BrowserRouter>
         <MainHeader/>
-        <Routes>
-            <Route path='/'element={<App/>} />
-            <Route exact path='/Pages/favorite' element={<Favorite/>}/>,
-            <Route exact path='/Pages/notes' element={<Notes/>}/>,
-            <Route exact path='/Pages/authorization' element={<Auth/>}/>
-        </Routes>
-    </BrowserRouter>,
+        <App/>
+    </BrowserRouter>
+    </Provider>,
 document.getElementById('root')
 );
