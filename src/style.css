@@ -1,7 +1,12 @@
 body{
     margin: 0;
 }
-
+img{
+    width: auto;
+    height: auto;
+    max-width: 640px;
+    max-height: 1024px;
+}
 .center{
     margin: auto;
     width: max-content;
