@@ -1,28 +1,64 @@
 import {action, makeObservable, observable} from "mobx";
-import React from "react";
 import axios from "axios";
+import data from "../data.json"
 
 export default class MainStore{
         constructor() {
         makeObservable(this, {
-            memes: observable,
+            memes: observable,                                  //обсы для мемов
             currentIndex: observable,
-            users: observable,
-            initUsers: action,
-            initImageArray: action,
+            dataUsers: observable,                              //обсы для авторизации
+            enteringLogin: observable,
+            enteringPassword: observable,
+            loginJSON: observable,
+            passJSON: observable,
+            auth: observable,
+            initImageArray: action,                            //акты для мемов
             nextImage: action,
-            previousImage: action
+            previousImage: action,
+            inputLoginData: action,                           //акты для авторизации
+            inputPassData: action,
+            checkAuth: action,
+            exitProfile: action,
 
         })
         this.initImageArray();
-        //this.initUsers();
+
+    }
+    auth = false
+    enteringLogin = ''
+    enteringPassword = ''
+    dataUsers = data.users
+    memes = []
+    currentIndex = 0
+    loginJSON = ''
+    passJSON = ""
+
+    //Работа с авторизацией
+    inputLoginData = (value) =>{
+            this.enteringLogin = value
+    }
+    inputPassData = (value) => {
+            this.enteringPassword = value
+    }
+    checkAuth = () => {
+        this.loginJSON = this.dataUsers.map((users)=>{
+            return users.login
+        })
+        this.passJSON  = this.dataUsers.map((users)=>{
+            return users.pass
+        })
+        this.loginJSON.includes(this.enteringLogin) === true ?
+            this.passJSON.includes(this.enteringPassword) === true ?
+                this.auth = true: alert('Неверный пароль')
+        : alert('Неверный логин')
+    }
+    exitProfile = (value) => {
+        this.auth = value
     }
 
-    memes = []
-    users = []
-    currentIndex = 0
-    initUsers = () =>{
-    }
+
+    //Работа с изображением
     nextImage = () => {
         if (this.currentIndex === this.memes.length-1) {
             this.currentIndex = 0
@@ -39,7 +75,6 @@ export default class MainStore{
         }
 
     }
-
     initImageArray = () =>{
         axios
             .get('https://api.imgflip.com/get_memes', {
@@ -52,4 +87,5 @@ export default class MainStore{
                 console.log(error)
             })
     }
+
 }
