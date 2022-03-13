@@ -5,6 +5,7 @@ import {BrowserRouter, Link} from "react-router-dom";
 import {Provider} from "mobx-react";
 import MainStore from "./stores/MainStore";
 import "./style.css"
+import ModalWindow from "./components/editNotes";
 
 const stores = {
     mainStore: new MainStore()
@@ -12,10 +13,10 @@ const stores = {
 const MainHeader = () => (
     <div className="border-head">
         <div className="center">
-                <Link to='/' className='text-bar'>Мемы </Link>
-                <Link to='/Pages/favorite' className='text-bar'>Избраное </Link>
-                <Link to='/Pages/notes' className='text-bar'>Заметки </Link>
-                <Link to='/Pages/authorization' className='text-bar'>Авторизация </Link>
+            <Link to='/' className='text-bar'>Мемы </Link>
+            <Link to='/Pages/favorite' className='text-bar'>Избраное </Link>
+            <Link to='/Pages/notes' className='text-bar'>Заметки </Link>
+            <Link to='/Pages/authorization' className='text-bar'>Авторизация </Link>
         </div>
     </div>
 )
@@ -26,5 +27,6 @@ ReactDOM.render(
         <App/>
     </BrowserRouter>
     </Provider>,
+
 document.getElementById('root')
 );

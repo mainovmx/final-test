@@ -1,14 +1,78 @@
 {
-  "users":[
+  "users": [
     {
       "id": 1,
       "login": "admin",
-      "pass": "12345678"
+      "pass": "admin",
+      "favorite": [
+        {
+          "id": "181913649",
+          "name": "Drake Hotline Bling",
+          "url": "https://i.imgflip.com/30b1gx.jpg",
+          "width": 1200,
+          "height": 1200,
+          "box_count": 2
+        },
+        {
+          "id": "131087935",
+          "name": "Running Away Balloon",
+          "url": "https://i.imgflip.com/261o3j.jpg",
+          "width": 761,
+          "height": 1024,
+          "box_count": 5
+        },
+        {
+          "id": "247375501",
+          "name": "Buff Doge vs. Cheems",
+          "url": "https://i.imgflip.com/43a45p.png",
+          "width": 937,
+          "height": 720,
+          "box_count": 4
+        }
+      ],
+      "notes":[
+        {"text":"Здарова",
+          "datetime" : "12.03.2022, 12:15:46"
+        },
+        {
+          "text": "Как похорошел React при Собянине",
+          "datetime": "12.03.2022, 12:30:02"
+        }
+
+    ]
     },
     {
       "id": 2,
       "login": "test_user",
-      "pass": "87654321"
+      "pass": "test_user",
+      "favorite": [
+        {
+          "id": "188390779",
+          "name": "Woman Yelling At Cat",
+          "url": "https://i.imgflip.com/345v97.jpg",
+          "width": 680,
+          "height": 438,
+          "box_count": 2
+        },
+        {
+          "id": "178591752",
+          "name": "Tuxedo Winnie The Pooh",
+          "url": "https://i.imgflip.com/2ybua0.png",
+          "width": 800,
+          "height": 582,
+          "box_count": 2
+        }
+      ],
+      "notes":[
+        {"text":"28 кликов мышью! Ты действовал наверняка",
+          "datetime": "12.03.2022, 15:49:08"
+        },
+        {
+          "text":"Батоны ахуительные",
+          "datetime": "12.03.2022, 13:21:43"
+        }
+
+      ]
     }
   ]
 }
