@@ -26,8 +26,7 @@ const Notes = inject('stores')(observer(({stores}) => {
         mainStore.setEditOrNot(false)
         mainStore.opacityEditNote(true)
     }
-    if(mainStore.auth){
-        return(
+    return(
         <div className = "center, no-margin">
             <div className = "content">
                 <input type = "button"  className = "add-note" value = " + " onClick = {actionAdd}/>
@@ -36,12 +35,6 @@ const Notes = inject('stores')(observer(({stores}) => {
                 <EditNote/>
             </div>
         </div>
-    )} else {
-        return (
-            <div className="content">
-                <h1>Заметки доступны только авторизированным пользователям</h1>
-            </div>
-        )
-    }
+    )
 }))
 export default Notes

@@ -16,8 +16,7 @@ const Favorite = inject('stores')(observer(({stores})=> {
                 </div>
         )
     })
-    if (stores.mainStore.auth) {
-        return(
+    return(
         <div className = "center, no-margin">
             <DetailView/>
             <div className = "content">
@@ -26,11 +25,6 @@ const Favorite = inject('stores')(observer(({stores})=> {
                 </div>
                 {showFavorite}
             </div>
-        </div>
-    )}
-    return (
-        <div className = "content">
-            <h1>Избранное доступно только авторизированным пользователям</h1>
         </div>
     )
 }))
