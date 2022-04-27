@@ -21,7 +21,7 @@ export default class MainStore {
             detailUrl: observable,
             initImageArray: action,
             nextImage: action,
-            Loader: action,
+            Loading: action,
             previousImage: action,
             inputLoginData: action,
             inputPassData: action,
@@ -38,7 +38,7 @@ export default class MainStore {
             addNote: action,
             inputNoteData: action,
             noteData: observable,
-            editOrNot: observable,
+            isEditable: observable,
             setEditOrNot: action,
             currentNoteIndex:observable,
         })
@@ -46,7 +46,7 @@ export default class MainStore {
         this.initDataBase();
     }
     currentNoteIndex = 0
-    editOrNot = false
+    isEditable = false
     currentUser = 0
     visibleModalNote = false
     isDataLoaded = false
@@ -59,24 +59,22 @@ export default class MainStore {
     currentIndex = 0
     loginJSON = ''
     passJSON = ""
-    meme = ''
     detailUrl = ''
     noteData = ''
-    initDataBase = () =>{
+    initDataBase = () => {
         this.dataBase = JSON.stringify(data.users)
-        let kos = localStorage.getItem('dataBase')
-        this.data = JSON.parse(kos)
-        console.log(JSON.stringify(this.data))
+        let parserJSON = localStorage.getItem('dataBase')
+        this.data = JSON.parse(parserJSON)
         if (this.data === null) {
             localStorage.setItem('dataBase', this.dataBase)
             this.data = localStorage.getItem('dataBase')
         }
     }
-    setCurrentNoteIndex = (value) =>{
+    setCurrentNoteIndex = (value) => {
         this.currentNoteIndex = value
     }
-    setEditOrNot = (value) =>{
-        this.editOrNot = value
+    setEditOrNot = (value) => {
+        this.isEditable = value
     }
     addFavorite = () => {
         this.getFavorite.push(this.getMeme)
@@ -86,15 +84,15 @@ export default class MainStore {
         this.noteData = value
     }
     addNote = () => {
-        if (this.editOrNot) {
+        if (this.isEditable) {
             let now = new Date().toLocaleString()
-            let arr= {"text": this.noteData, "datetime": now}
-            this.data[this.currentUser].notes.splice(this.currentNoteIndex,1,arr)
+            let arNote = {"text": this.noteData, "datetime": now}
+            this.data[this.currentUser].notes.splice(this.currentNoteIndex,1,arNote)
             this.noteData = ''
         } else{
             let now = new Date().toLocaleString()
-            let arr = {"text": this.noteData, "datetime": now}
-            this.data[this.currentUser].notes.push(arr)
+            let arNote = {"text": this.noteData, "datetime": now}
+            this.data[this.currentUser].notes.push(arNote)
             this.noteData = ''
         }
         this.uploadOnJSON()
@@ -103,9 +101,9 @@ export default class MainStore {
         let upload = JSON.stringify(this.data)
         localStorage.setItem('dataBase', upload)
     }
-    removeDataInFile = (arr, value) => {
-        (arr) ? arr = this.getNote : arr = this.getFavorite
-        arr.splice(value, 1)
+    removeDataInFile = (isNote, value) => {
+        (isNote) ? isNote = this.getNote : isNote = this.getFavorite
+        isNote.splice(value, 1)
         this.uploadOnJSON()
     }
     setDetailViewUrl = (value) => {
@@ -114,7 +112,7 @@ export default class MainStore {
     opacityEditNote = (value) => {
         this.visibleModalNote = value
     }
-    Loader = (value) => {
+    Loading = (value) => {
         this.isDataLoaded = value
     }
     inputLoginData = (value) => {
@@ -164,7 +162,7 @@ export default class MainStore {
             })
             .then((response) => {
                 this.memes = response.data.data.memes
-                this.Loader(true)
+                this.Loading(true)
             })
             .catch(error => {
                 console.log(error)
