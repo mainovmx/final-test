@@ -3,28 +3,27 @@ import {inject, observer} from "mobx-react";
 import EditNote from "../../components/editNotes";
 
 
-const Notes = inject('stores')(observer(({stores}) => {
-    const mainStore = stores.mainStore
-    const item = mainStore.getNote
-    const showNotes = item.map((item,index) => {
+const Notes = inject('noteStore','mainStore')(observer(({noteStore,mainStore}) => {
+    const note = noteStore.getNote
+    const showNotes = note.map((item,index) => {
         const handleClickEdit = () => {
-            mainStore.setCurrentNoteIndex(index)
-            mainStore.setEditOrNot(true)
-            mainStore.inputNoteData(item.text)
-            mainStore.opacityEditNote(true)
+            noteStore.setCurrentNoteIndex(index)
+            noteStore.setEditOrNot(true)
+            noteStore.inputNoteData(item.text)
+            mainStore.opacityModalWindow(true)
         }
         return(
             <div className = "notes">
                 <a>{item.datetime} </a>
                 <a className = "text-note">{item.text}</a>
                 <input type = "button" className = "edit-note" value = "e" onClick = {handleClickEdit}/>
-                <input type = "button" className = "delete-note" value = "x" onClick = {() => mainStore.removeDataInFile(true , index)} />
+                <input type = "button" className = "delete-note" value = "x" onClick = {() => noteStore.removeNote(index)} />
             </div>
         )
     })
     const actionAdd = () => {
-        mainStore.setEditOrNot(false)
-        mainStore.opacityEditNote(true)
+        noteStore.setEditOrNot(false)
+        mainStore.opacityModalWindow(true)
     }
     return(
         <div className = "center, no-margin">

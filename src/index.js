@@ -5,9 +5,13 @@ import {BrowserRouter, Link} from "react-router-dom";
 import {Provider} from "mobx-react";
 import MainStore from "./stores/MainStore";
 import "./style.css"
+import AuthStore from "./stores/AuthStore";
+import NoteStore from "./stores/NoteStore";
 
 const stores = {
-    mainStore: new MainStore()
+    mainStore: new MainStore(),
+    authStore: new AuthStore(),
+    noteStore: new NoteStore()
 }
 const MainHeader = () => (
     <div className = "border-head">
@@ -20,7 +24,7 @@ const MainHeader = () => (
     </div>
 )
 ReactDOM.render(
-    <Provider stores = {stores}>
+    <Provider mainStore = {stores.mainStore} authStore = {stores.authStore} noteStore = {stores.noteStore}>
     <BrowserRouter>
         <MainHeader/>
         <App/>

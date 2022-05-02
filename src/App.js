@@ -7,9 +7,9 @@ import Notes from "./Pages/notes";
 import Auth from "./Pages/authorization";
 import {inject, observer} from "mobx-react";
 
-const App = inject('stores')( observer(({stores}) => {
+const App = inject('authStore')( observer(({authStore}) => {
     const checkAuth = (page) => {
-         if (stores.mainStore.auth){
+         if (authStore.auth){
              return page
          }
          return <Auth/>

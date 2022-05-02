@@ -2,16 +2,16 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import DetailView from "../../components/detailVIew";
 
-const Favorite = inject('stores')(observer(({stores})=> {
-    const showFavorite = stores.mainStore.getFavorite.map((item, index)=> {
+const Favorite = inject('mainStore')(observer(({mainStore})=> {
+    const showFavorite = mainStore.getFavorite.map((item, index)=> {
         return(
                 <div>
                     <a className = 'text-content'> {item.name} </a>
                     <div className = 'container'>
                         <img src={item.url} onClick={() => {
-                            stores.mainStore.setDetailViewUrl(item.url)
-                            stores.mainStore.opacityEditNote(true)}}/>
-                        <input type='button' className='btn' value='X' onClick={() => {stores.mainStore.removeDataInFile(false, index)}}/>
+                            mainStore.setDetailViewUrl(item.url)
+                            mainStore.opacityModalWindow(true)}}/>
+                        <input type='button' className='btn' value='X' onClick={() => {mainStore.removeFavorite(index)}}/>
                     </div>
                 </div>
         )
