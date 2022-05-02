@@ -1,6 +1,7 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import EditNote from "../../components/editNotes";
+import * as shortid from "shortid";
 
 
 const Notes = inject('noteStore','mainStore')(observer(({noteStore,mainStore}) => {
@@ -13,7 +14,7 @@ const Notes = inject('noteStore','mainStore')(observer(({noteStore,mainStore}) =
             mainStore.opacityModalWindow(true)
         }
         return(
-            <div className = "notes">
+            <div className = "notes" key={shortid.generate()}>
                 <a>{item.datetime} </a>
                 <a className = "text-note">{item.text}</a>
                 <input type = "button" className = "edit-note" value = "e" onClick = {handleClickEdit}/>

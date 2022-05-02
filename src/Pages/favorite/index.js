@@ -1,12 +1,13 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import DetailView from "../../components/detailVIew";
+import * as shortid from "shortid";
 
 const Favorite = inject('mainStore')(observer(({mainStore})=> {
     const showFavorite = mainStore.getFavorite.map((item, index)=> {
         return(
-                <div>
-                    <a className = 'text-content'> {item.name} </a>
+                <div key={shortid.generate()}>
+                    <a className = 'text-content' > {item.name} </a>
                     <div className = 'container'>
                         <img src={item.url} onClick={() => {
                             mainStore.setDetailViewUrl(item.url)
