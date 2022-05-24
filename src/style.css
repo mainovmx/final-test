@@ -1,10 +1,94 @@
-body{
+-body{
     margin: 0;
 }
-
+.text-note{
+    font-size: x-large;
+}
+.add-note{
+    position: absolute;
+    background-color: #555;
+    color: white;
+    font-size: xx-large;
+    padding: 3px 3px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    opacity: 30%;
+}
+.add-note:hover{
+    opacity: 100%;
+}
+.delete-note{
+    position: absolute;
+    right: 19%;
+    background-color: #555;
+    color: white;
+    padding: 3px 6px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    opacity: 30%;
+}
+.delete-note:hover{
+    opacity: 100%;
+}
+.edit-note{
+    position: absolute;
+    right: 20.5%;
+    background-color: #555;
+    color: white;
+    padding: 3px 6px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    opacity: 30%;
+}
+.edit-note-note:hover{
+    opacity: 100%;
+}
 .center{
     margin: auto;
     width: max-content;
+    max-width: 1024px;
+}
+.container {
+    position: relative;
+    left: 18%;
+}
+
+
+.container img {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+    max-height: 1024px;
+}
+.btn {
+    position: absolute;
+    left: -10%;
+    top: 3%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    opacity: 30%;
+}
+.dtl-view{
+    left: 50%;
+    max-width: 1890px;
+    max-height: 720px;
+    width:max-content;
+    height: max-content;
+}
+.btn:hover {
+    background-color: black;
+    opacity: 80%;
 }
 .border-head{
     border-bottom: 2px solid wheat;
@@ -34,14 +118,117 @@ body{
     border-bottom-right-radius: 10px;
 }
 .text-content{
-    font-size: 50px;
+    font-size: xx-large;
     font-family: "Times New Roman";
-    font-style: italic;
 }
 .no-margin{
     margin-top:0;
 }
-.button-margin{
-    top: 10px;
-    width: 96px;
+.button-margin-left{
+    position: absolute;
+    width: 40px;
+    left: -190px;
+    opacity: 10%;
+    top: 256px;
+}
+.button-margin-left:hover{
+    opacity: 100%;
+}
+.button-margin-right{
+    position: absolute;
+    width: 40px;
+    right: 186px;
+    top: 256px;
+    opacity: 10%;
+}
+.button-margin-right:hover{
+    opacity: 100%;
+}
+
+
+
+
+
+
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.25);
+    animation-name: appear;
+    animation-duration: 300ms;
+}
+
+.modal-dialog {
+    width: 100%;
+    max-width: 550px;
+    background: white;
+    position: relative;
+    margin: 0 20px;
+    max-height: calc(100vh - 40px);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slide-in;
+    animation-duration: 0.5s;
+}
+
+.modal-header,
+.modal-footer {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+.modal-header {
+    border-bottom: 1px solid #dbdbdb;
+    justify-content: space-between;
+}
+.modal-footer {
+    border-top: 1px solid #dbdbdb;
+    justify-content: flex-end;
+}
+.modal-close {
+    cursor: pointer;
+    padding: 1rem;
+    margin: -1rem -1rem -1rem auto;
+}
+.modal-body {
+    overflow: auto;
+}
+.modal-content {
+    padding: 1rem;
+}
+
+.modal-title {
+    margin: 0;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes slide-in {
+    from {
+        transform: translateY(-150px);
+    }
+    to {
+        transform: translateY(0);
+    }
 }

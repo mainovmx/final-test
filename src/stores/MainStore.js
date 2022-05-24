@@ -1,66 +1,32 @@
-import {action, makeObservable, observable} from "mobx";
+import {makeAutoObservable} from "mobx";
 import axios from "axios";
-import data from "../data.json"
+import AuthStore from "./AuthStore";
+import DBStore from "./DBStore";
 
-export default class MainStore{
-        constructor() {
-        makeObservable(this, {
-            memes: observable,                                  //обсы для мемов
-            currentIndex: observable,
-            dataUsers: observable,                              //обсы для авторизации
-            enteringLogin: observable,
-            enteringPassword: observable,
-            loginJSON: observable,
-            passJSON: observable,
-            auth: observable,
-            initImageArray: action,                            //акты для мемов
-            nextImage: action,
-            previousImage: action,
-            inputLoginData: action,                           //акты для авторизации
-            inputPassData: action,
-            checkAuth: action,
-            exitProfile: action,
-
-        })
+export default class MainStore {
+    constructor() {
+        makeAutoObservable(this)
         this.initImageArray();
-
     }
-    auth = false
-    enteringLogin = ''
-    enteringPassword = ''
-    dataUsers = data.users
+    currentUser = new AuthStore().currentUser
+    data = new DBStore().data
+    visibleModalNote = false
+    isDataLoaded = false
     memes = []
     currentIndex = 0
-    loginJSON = ''
-    passJSON = ""
-
-    //Работа с авторизацией
-    inputLoginData = (value) =>{
-            this.enteringLogin = value
+    detailUrl = ''
+    setDetailViewUrl = (value) => {
+        this.detailUrl = value
     }
-    inputPassData = (value) => {
-            this.enteringPassword = value
+    opacityModalWindow = (value) => {
+        this.visibleModalNote = value
     }
-    checkAuth = () => {
-        this.loginJSON = this.dataUsers.map((users)=>{
-            return users.login
-        })
-        this.passJSON  = this.dataUsers.map((users)=>{
-            return users.pass
-        })
-        this.loginJSON.includes(this.enteringLogin) === true ?
-            this.passJSON.includes(this.enteringPassword) === true ?
-                this.auth = true: alert('Неверный пароль')
-        : alert('Неверный логин')
-    }
-    exitProfile = (value) => {
-        this.auth = value
+    loading = (value) => {
+        this.isDataLoaded = value
     }
 
-
-    //Работа с изображением
     nextImage = () => {
-        if (this.currentIndex === this.memes.length-1) {
+        if (this.currentIndex === this.memes.length - 1) {
             this.currentIndex = 0
         } else {
             this.currentIndex++
@@ -68,24 +34,45 @@ export default class MainStore{
 
     }
     previousImage = () => {
-        if (this.currentIndex === this.memes.length-1) {
+        if (this.currentIndex === this.memes.length - 1) {
             this.currentIndex = 0
         } else {
             this.currentIndex--
         }
 
     }
-    initImageArray = () =>{
+    initImageArray = () => {
         axios
             .get('https://api.imgflip.com/get_memes', {
                 extras: "memes"
             })
-            .then((response)=>{
+            .then((response) => {
                 this.memes = response.data.data.memes
+                this.loading(true)
             })
             .catch(error => {
                 console.log(error)
             })
+
+    }
+    get getMeme() {
+        return this.memes[this.currentIndex]
+    }
+
+    get getFavorite() {
+        return this.data[this.currentUser].favorite
+    }
+    addFavorite = () => {
+        this.getFavorite.push(this.getMeme)
+        this.uploadOnJSON()
+    }
+    removeFavorite = (value) => {
+        this.getFavorite.splice(value, 1)
+        this.uploadOnJSON()
+    }
+    uploadOnJSON = () => {
+        let upload = JSON.stringify(this.data)
+        localStorage.setItem('dataBase', upload)
     }
 
 }
